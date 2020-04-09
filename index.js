@@ -2,72 +2,44 @@
 
 import clear from 'clear'
 import chalk from 'chalk'
-import figlet from 'figlet'
 import quickSort from './algorithms/sorting/quicksort.js'
 import mergeSort from './algorithms/sorting/merge-sort.js'
+import ValidationError from './utils/error.js';
+import { drawUsageMenu, parseParameter, usageMenuRequested, drawTitle } from './utils/utils.js';
 
+clear()
 
-function drawUsageMenu() {
-  return `
-      Perform algorithm command.
+drawTitle('Algo')
 
-      Usage:   algo [OPTIONS] COMMAND
-      
-      Options:
-        -h, --help       Print help and quit
-        -v, --version    Print version information and quit
-      
-      Commands:
-        quicksort       Deploy stack or service according to stack dependencies
-        merge-sort      Remove stack or service according to stack dependencies 
-        
-        binary-search   Remove stack or service according to stack dependencies 
+if (usageMenuRequested())
+  drawUsageMenu()
 
-      
-      Run 'algo COMMAND --help for more information on a command.'
-  
-  `;
-}
-
-clear();
-
-
-console.log(
-  chalk.yellow(
-    figlet.textSync('Algo', { horizontalLayout: 'full' })
-  )
-);
-
-if (process.argv.length <= 2) {
-  console.log(drawUsageMenu())
-  process.exit()
-}
-
-let algorithms = ['quicksort', 'merge-sort']
+let algorithms = ['quicksort', 'mergeSort']
 let [, command, algorithm, parameter] = process.argv;
 
 try {
-  let data = JSON.parse(parameter);
+  let data = parseParameter(parameter);
+  if (data === false)
+    throw new ValidationError(`${command} ${algorithm} ${chalk.bgRed(parameter || ' ')} \n ${chalk.red(`The parameter has not a valid JSON syntax.`)}`);
 
-  if(!algorithms.some(algorithm)) {
-    console.log(chalk.red(`The algorithm does not exist`))
-    process.exit()
-  }
-
+  if (!algorithms.includes(algorithm))
+    throw new ValidationError(`${command} ${chalk.bgRed(algorithm)} ${parameter || ''} \n ${chalk.red(`The algorithm does not exist`)}`);
 
   switch (algorithm) {
     case 'quicksort':
-      quickSort(data)
+      quickSort(data || [9, 3, 15, 6, 8, 10])
       break;
-    case 'merge-sort':
-      mergeSort(data)
+    case 'mergeSort':
+      mergeSort(data || [9, 3, 15, 6, 8, 10])
       break;
   }
+
 } catch (e) {
-  if (e instanceof SyntaxError) {
-    console.log(`${command} ${algorithm} ${chalk.bgRed(parameter)}`)
-    console.log(chalk.red(`The parameter  has not a valid JSON syntax.`))
+  if (e instanceof ValidationError) {
+    console.error(e.message)
     process.exit()
+  } else {
+    throw e;
   }
 }
 
