@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>ARRAY API</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body>
+        <h2 id="array-api">ARRAY API</h2>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">let</span> array = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>].slice(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>) <span class="hljs-comment">// [1, 2, 3, 4] : get index from 1 to 4 </span>
+<span class="hljs-keyword">let</span> array = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]
+array.splice(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-string">'toto'</span>) <span class="hljs-comment">// [0, 1, 'toto', 2, 3, 4] : insert 'toto' at the index 2</span>
+array.splice(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-string">'toto'</span>, <span class="hljs-string">'tata'</span>) <span class="hljs-comment">// [0, 1, 'toto', 'tata', 2, 3, 4] : insert 'toto' at the index 2 (so push the previous on at index 3)</span>
+array.splice(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// [0,1,4,5] delete two items starting at the index 2</span>
+
+array.concat(array2) <span class="hljs-comment">// return a new array</span>
+array.reduce(<span class="hljs-function">(<span class="hljs-params">accumulator, currentValue, index, array</span>) =&gt;</span> {}, <span class="hljs-number">0</span>)
+array.find()
+array.findIndex()
+array.include()
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compare</span>(<span class="hljs-params">a, b</span>) </span>{
+  <span class="hljs-keyword">if</span> (a is less than b by some ordering criterion) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+  }
+  <span class="hljs-keyword">if</span> (a is greater than b by the ordering criterion) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+  }
+  <span class="hljs-comment">// a must be equal to b</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compareNumbers</span>(<span class="hljs-params">a, b</span>) </span>{
+  <span class="hljs-keyword">return</span> a - b;
+}
+</div></code></pre>
+<h2 id="math-api">MATH API</h2>
+<p>let upperLimit = Number.MAX_SAFE_INTEGER : 9007199254740991 <br>
+let lowerLimit = Number.MIN_SAFE_INTEGER : -9007199254740991</p>
+<p>32 bit max : 2**31 - 1 <br>
+32 bit min : -2**31</p>
+<p>let pi = Math.PI; <br>
+let squareRoot = Math.sqrt(); <br>
+let max = Math.max(...numbers);</p>
+<h2 id="string-api">STRING API</h2>
+<p>ASCII table : Majuscule before minuscule</p>
+<pre><code class="language-javascript"><div><span class="hljs-built_in">String</span>.fromCharCode() <span class="hljs-comment">// get the character from the char code position</span>
+<span class="hljs-string">'a'</span>.charCodeAt(<span class="hljs-number">0</span>) <span class="hljs-comment">// get ghe ACII char code position</span>
+<span class="hljs-keyword">let</span> char = (<span class="hljs-string">'a'</span>.charCodeAt(<span class="hljs-number">0</span>) + <span class="hljs-string">'E'</span>.charCodeAt(<span class="hljs-number">0</span>) - <span class="hljs-string">'A'</span>.charCodeAt(<span class="hljs-number">0</span>)) <span class="hljs-comment">// 101 ('e') : get the code of the lower case</span>
+</div></code></pre>
+<h2 id="date-api">DATE API</h2>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">let</span> dateFromString = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'2017-2-10T00:00:00Z'</span>)
+<span class="hljs-keyword">let</span> dateFromTimstamp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">1582217025</span>)
+<span class="hljs-keyword">let</span> dateFromParams = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(YEAR, MOUNT_START_AT_I_0, DAY, HOURS, MIN, SEC)
+
+<span class="hljs-keyword">let</span> date = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(...)
+date.getTime() <span class="hljs-comment">// 1582217025</span>
+date.toISOString() <span class="hljs-comment">// "2020-02-20T16:54:06.955Z"</span>
+date.toString() <span class="hljs-comment">// "Thu Feb 20 2020 17:54:06 GMT+0100 (Central European Standard Time)"</span>
+</div></code></pre>
+<blockquote>
+<p>Construct one for each date, then compare them using the &gt;, &lt;, &lt;= or &gt;=.</p>
+<p>The ==, !=, ===, and !== operators require you to use date.getTime() as in</p>
+</blockquote>
+<h2 id="system-design-and-scalability">SYSTEM DESIGN AND SCALABILITY</h2>
+<p>read-heavy vs write-heavy <br>
+failure <br>
+availability vs reliability <br>
+security \</p>
+<p>Easy of use <br>
+Easy to implement <br>
+Flexible \</p>
+<h2 id="operators">OPERATORs</h2>
+<table>
+<thead>
+<tr>
+<th>Common operators</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Division assignment</td>
+<td>x /= y</td>
+<td>x = x / y</td>
+</tr>
+<tr>
+<td>Remainder assignment</td>
+<td>x %= y</td>
+<td>x = x % y</td>
+</tr>
+<tr>
+<td>Exponentiation assignment</td>
+<td>x **= y</td>
+<td>x = x ** y</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Bitwise operators</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Left shift assignment</td>
+<td>x &lt;&lt;= y</td>
+<td>x = x &lt;&lt; y</td>
+</tr>
+<tr>
+<td>Right shift assignment</td>
+<td>x &gt;&gt;= y</td>
+<td>x = x &gt;&gt; y</td>
+</tr>
+<tr>
+<td>Unsigned right shift assignment</td>
+<td>x &gt;&gt;&gt;= y</td>
+<td>x = x &gt;&gt;&gt; y</td>
+</tr>
+<tr>
+<td>Bitwise AND assignment</td>
+<td>x &amp;= y</td>
+<td>x = x &amp; y</td>
+</tr>
+<tr>
+<td>Bitwise XOR assignment</td>
+<td>x ^= y</td>
+<td>x = x ^ y</td>
+</tr>
+<tr>
+<td>Bitwise OR assignment</td>
+<td>x |= y</td>
+<td>x = x</td>
+</tr>
+</tbody>
+</table>
+
+    </body>
+    </html>

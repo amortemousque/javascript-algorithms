@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>BINARY SEARCH BOUNDS</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body>
+        <h2 id="binary-search-bounds">BINARY SEARCH BOUNDS</h2>
+<pre><code class="language-javascript"><div><span class="hljs-keyword">let</span> logs = [ <span class="hljs-number">200</span>, <span class="hljs-number">201</span>, <span class="hljs-number">201</span>, <span class="hljs-number">201</span>,<span class="hljs-number">201</span> ] 
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">binarySearchLowerBound</span>(<span class="hljs-params">logs, value, start = <span class="hljs-number">0</span>, end = logs.length</span>) </span>{
+ 
+  <span class="hljs-keyword">if</span>(start &gt; end)
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+  
+  <span class="hljs-keyword">let</span> middle = <span class="hljs-built_in">Math</span>.floor((start + end) / <span class="hljs-number">2</span>)
+  
+  <span class="hljs-keyword">if</span>(logs[middle] == value &amp;&amp; (logs[middle - <span class="hljs-number">1</span>] === <span class="hljs-literal">undefined</span> || logs[middle - <span class="hljs-number">1</span>] &lt; logs[middle])) {
+    <span class="hljs-keyword">return</span> middle
+  }
+  
+  <span class="hljs-keyword">if</span>(value &lt;= logs[middle])
+    <span class="hljs-keyword">return</span> binarySearchLowerBound(logs, value, start, middle - <span class="hljs-number">1</span>)
+  <span class="hljs-keyword">else</span> 
+    <span class="hljs-keyword">return</span> binarySearchLowerBound(logs, value, middle + <span class="hljs-number">1</span>, end)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">binarySearchUpperBound</span>(<span class="hljs-params">logs, value, start = <span class="hljs-number">0</span>, end = logs.length</span>) </span>{
+ 
+  <span class="hljs-keyword">if</span>(start &gt; end)
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+  
+  <span class="hljs-keyword">let</span> middle = <span class="hljs-built_in">Math</span>.floor((start + end) / <span class="hljs-number">2</span>)
+  
+  <span class="hljs-keyword">if</span>(logs[middle] == value &amp;&amp; (logs[middle + <span class="hljs-number">1</span>] === <span class="hljs-literal">undefined</span> || logs[middle + <span class="hljs-number">1</span>] &gt; logs[middle])) {
+    <span class="hljs-keyword">return</span> middle
+  }
+
+  <span class="hljs-keyword">if</span>(value &lt; logs[middle])
+    <span class="hljs-keyword">return</span> binarySearchUpperBound(logs, value, start, middle - <span class="hljs-number">1</span>)
+  <span class="hljs-keyword">else</span> 
+    <span class="hljs-keyword">return</span> binarySearchUpperBound(logs, value, middle + <span class="hljs-number">1</span>, end)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">find</span>(<span class="hljs-params">logs, value</span>) </span>{
+  <span class="hljs-keyword">let</span> start = binarySearchLowerBound(logs, value)
+  <span class="hljs-keyword">let</span> end = binarySearchUpperBound(logs, value)
+  <span class="hljs-built_in">console</span>.log(start, end)
+  <span class="hljs-keyword">return</span> logs.slice(start, end + <span class="hljs-number">1</span>)
+}
+
+<span class="hljs-built_in">console</span>.log(find(logs, <span class="hljs-number">201</span>))
+</div></code></pre>
+
+    </body>
+    </html>
