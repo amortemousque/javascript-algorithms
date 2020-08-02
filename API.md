@@ -50,6 +50,20 @@ String.fromCharCode() // get the character from the char code position
 let char = ('a'.charCodeAt(0) + 'E'.charCodeAt(0) - 'A'.charCodeAt(0)) // 101 ('e') : get the code of the lower case
 ```
 
+## BOOLEAN
+```javascript
+Boolean("test") // true
+```
+
+## NUMBER (NaN)
+```javascript
+let int = parseInt('11')
+let float = parseFloat('11,3')
+
+let number = parseInt('test')
+isNaN(number) // true
+```
+
 
 
 ## DATE API
@@ -94,5 +108,3 @@ Flexible \
 |Bitwise AND assignment |	x &= y |	x = x & y |
 |Bitwise XOR assignment	| x ^= y |	x = x ^ y |
 |Bitwise OR assignment |	x \|= y |	x = x | y |
-
-
